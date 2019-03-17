@@ -89,6 +89,8 @@ expObj.getTrainBetweenStation = function(req, res){
         }
         apiService.callAPI(details)
         .then(resBody=>{
+            console.log("data from ele",JSON.stringify(resBody.trains))
+            console.log("data from eledfsdfsd",JSON.stringify(resBody["trains"]))
             let listItems=[]
             resBody.trains.forEach(element => {
                 listItems.push({
