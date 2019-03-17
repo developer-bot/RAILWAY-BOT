@@ -15,13 +15,10 @@ expObj.getTrainBetweenStation = function(req, res){
         if (req.body.queryResult.parameters['fromStation']== "") {
         let simpresponse = {"simpleMsgs":[
             {
-                "displayText": apiConfig.trainBetweenStation.ResMsg.FROM_STATION_SPEECH
-                ,"textToSpeech":apiConfig.trainBetweenStation.ResMsg.FROM_STATION_TEXT,
+                "displayText": apiConfig.trainBetweenStation.ResMsg.FROM_STATION_TEXT
+                ,"textToSpeech":apiConfig.trainBetweenStation.ResMsg.FROM_STATION_SPEECH,
             },
-            {
-                "displayText": apiConfig.trainBetweenStation.ResMsg.FROM_STATION_SPEECH
-                ,"textToSpeech":apiConfig.trainBetweenStation.ResMsg.FROM_STATION_TEXT,
-            }],
+        ],
             
         };
         console.log("response object",JSON.stringify(simpresponse))
@@ -32,7 +29,41 @@ expObj.getTrainBetweenStation = function(req, res){
         }).catch (e =>{
             sendCommonErrorResponse(req, res);
         });
-    }
+    } else if(req.body.queryResult.parameters['toStation']== ""){
+        let simpresponse = {"simpleMsgs":[
+            {
+                "displayText": apiConfig.trainBetweenStation.ResMsg.TO_STATION_TEXT
+                ,"textToSpeech":apiConfig.trainBetweenStation.ResMsg.TO_STATION_SPEECH,
+            },
+        ],
+            
+        };
+        console.log("response object",JSON.stringify(simpresponse))
+        templateService.simpleResponse(simpresponse)
+        .then(respObj=>{
+            console.log("rep",JSON.stringify(respObj))
+            return res.json(respObj).end();
+        }).catch (e =>{
+            sendCommonErrorResponse(req, res);
+        });
+    } else if(req.body.queryResult.parameters['date']== ""){
+        let simpresponse = {"simpleMsgs":[
+            {
+                "displayText": apiConfig.trainBetweenStation.ResMsg.DATE_TEXT
+                ,"textToSpeech":apiConfig.trainBetweenStation.ResMsg.DATE_SPEECH,
+            },
+        ],
+            
+        };
+        console.log("response object",JSON.stringify(simpresponse))
+        templateService.simpleResponse(simpresponse)
+        .then(respObj=>{
+            console.log("rep",JSON.stringify(respObj))
+            return res.json(respObj).end();
+        }).catch (e =>{
+            sendCommonErrorResponse(req, res);
+        });
+    } 
 }
 
 
