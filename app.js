@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 
 app.post("/webhook",function(req,res){
     console.log("received a post request",JSON.stringify(req.body));
-      responseObj=
+      let responseObj=
       {
         "payload": {
           "google": {
