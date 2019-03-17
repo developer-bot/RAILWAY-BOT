@@ -10,7 +10,9 @@ let expObj = {};
 
 expObj.getTrainBetweenStation = function(req, res){
     console.log("body is coming",JSON.stringify(req.body))
-        if (req.body.queryResult.parameters.fromStation == "") {
+    console.log("form station",req.body.queryResult.parameters['fromStation'])
+    console.log("all parameters",req.body.queryResult.parameters)
+        if (req.body.queryResult.parameters['fromStation']== "") {
         let simpresponse = {"simpleMsgs":[
             {
                 "displayText": apiConfig.trainBetweenStation.ResMsg.FROM_STATION_SPEECH
@@ -23,7 +25,6 @@ expObj.getTrainBetweenStation = function(req, res){
         .then(respObj=>{
             return res.json(respObj).end();
         }).catch (e =>{
-            personalInfoLogs.error(e);
             sendCommonErrorResponse(req, res);
         });
     }
@@ -156,4 +157,27 @@ expObj.getTrainBetweenStation = function(req, res){
 //     }
 // };
 
+
+function sendCommonErrorResponse(req,res){
+    console.log("error method");
+    // personalInfoLogs.info("outside the tryyy",COMMON_DATA.errorText);
+    // let simpresponse = {"simpleMsgs":[
+    //     {
+    //         "displayText": COMMON_DATA.errorText
+    //         ,"textToSpeech":COMMON_DATA.errorText
+    //     }],
+    // "contextOut":""
+    // ,"sugChips":COMMON_DATA['confirmMsgChip']
+    // };
+    // templateService.simpleResponse(simpresponse)
+    //             .then(respObj=>{
+    //                 for(var i=0;i<req.body.contexts.length;i++){
+    //                     req.body.contexts[i].lifespanCount = 0;
+    //                     }
+    //                     respObj.contextOut=req.body.contexts;
+    //                 return res.json(respObj).end();
+    //             }).catch (e =>{
+    //                 sendCommonErrorResponse(req,res);
+    //             });
+}
 module.exports = expObj;
