@@ -24,6 +24,7 @@ expObj.getTrainBetweenStation = function(req, res){
         console.log("response object",JSON.stringify(simpresponse))
         templateService.simpleResponse(simpresponse)
         .then(respObj=>{
+            console.log("rep",JSON.stringify(respObj))
             return res.json(respObj).end();
         }).catch (e =>{
             sendCommonErrorResponse(req, res);
