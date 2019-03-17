@@ -165,12 +165,20 @@ expObj.cardResponse = function(params){
 //   }
 // }
 
+
+
+
+
+
+
+
+
 expObj.listResponse = function (params) {
     return new Promise((resolve, reject) => {
     var simple_msgs=[];
     for(var i in params.simpleMsgs){
       simple_msgs.push({
-        "tetextToSpeechxt": params.simpleMsgs[i].displayText
+        "textToSpeech": params.simpleMsgs[i].displayText
         ,"displayText": params.simpleMsgs[i].textToSpeech
       })
     }
