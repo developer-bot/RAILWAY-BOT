@@ -1,7 +1,7 @@
 
 //const COMMON_DATA = require('../config/common.json');
 const STATION_CODE = require('../config/stationCode.json');
-const apiConfig = require('../config/apiConfig.json');
+//const apiConfig = require('../config/apiConfig.json');
 let templateService = require('../utils/responseTemplate');
 let apiService = require('../utils/apiService');
 
