@@ -89,7 +89,33 @@ expObj.getTrainBetweenStation = function(req, res){
         }
         apiService.callAPI(details)
         .then(resBody=>{
-            console.log("response body from api",JSON.stringify(resBody))
+            let listItems=[]
+            resBody.trains.forEach(element => {
+                listItems.push({
+                    "optionInfo": {
+                      "key": resBody.trains.name
+                    },
+                    "description": "",
+                    "image":"",
+                    "title": resBody.trains.name
+                  })
+            });
+            let listDetails = {
+                "simpleMsgs":[{
+                    "textToSpeech": "following are the list of train",
+                    "displayText": "following are the list of train",
+                }],
+                  "list": {
+                    "itemValues": listItems
+                }
+            };
+            templateService.listResponse(listDetails)
+            .then(respObj=>{
+              console.log("no meetings"+JSON.stringify(respObj))
+              return res.json(respObj).end();
+            }).catch (e =>{
+                  return sendCommonErrorResponse(req,res);
+            });
         })
         .catch(e =>{
             console.log("error in api calling");

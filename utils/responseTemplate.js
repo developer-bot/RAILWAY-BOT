@@ -144,52 +144,86 @@ expObj.cardResponse = function(params){
 
 }  
 */  
+
+
+{
+  "payload": {
+    "google": {
+      "expectUserResponse": true,
+      "richResponse": {
+        "items": [
+          {
+            "simpleResponse": {
+              "textToSpeech": "Choose a item"
+            }
+          }
+        ]
+      },
+      "systemIntent": {
+        "intent": "actions.intent.OPTION",
+        "data": {
+          "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
+          "listSelect": {
+            "title": "Hello",
+            "items": [
+              {
+                "optionInfo": {
+                  "key": "first title key"
+                },
+                "description": "first description",
+                "image": {
+                  "url": "https://developers.google.com/actions/images/badges/XPM_BADGING_GoogleAssistant_VER.png",
+                  "accessibilityText": "first alt"
+                },
+                "title": "first title"
+              },
+              {
+                "optionInfo": {
+                  "key": "second"
+                },
+                "description": "second description",
+                "image": {
+                  "url": "https://lh3.googleusercontent.com/Nu3a6F80WfixUqf_ec_vgXy_c0-0r4VLJRXjVFF_X_CIilEu8B9fT35qyTEj_PEsKw",
+                  "accessibilityText": "second alt"
+                },
+                "title": "second title"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}
 expObj.listResponse = function (params) {
     return new Promise((resolve, reject) => {
     var simple_msgs=[];
     for(var i in params.simpleMsgs){
-        simple_msgs.push({
-            "text": params.simpleMsgs[i].displayText
-            ,"speech": params.simpleMsgs[i].textToSpeech
-          })
+      simple_msgs.push({
+        "text": params.simpleMsgs[i].displayText
+        ,"speech": params.simpleMsgs[i].textToSpeech
+      })
     }
-var itemVals=[];
-  for(var i in params.list.itemValues){
-itemVals.push({
-  "title": params.list.itemValues[i]['title']
-  ,"subTitle": params.list.itemValues[i]['description']
-  ,"synonyms": params.list.itemValues[i]['optionInfo']['synonyms']
-  ,"image": {
-    "url": params.list.itemValues[i]['url'] || ""
-    ,"altText": params.list.itemValues[i]['urlText'] || ""
-  },
-  "postback": params.list.itemValues[i]['postback'] || ""
-  ,"buttons": [
-    {
-      "title": params.list.itemValues[i]['buttonTitle'] || ""
-      ,"url": params.list.itemValues[i]['buttonUrl'] || ""
-    }
-  ]
-});
-  }
-
   let respObj = {
-    "simpleText": simple_msgs,
-    "list": {
-      "title": params.list.title
-      ,"items": itemVals,
-      "buttons": [
-        {
-          "title": ""
-          ,"type": ""
-          ,"postback": ""
-          
+    "payload": {
+      "google": {
+        "expectUserResponse": true,
+        "richResponse": {
+          "items": simple_msgs
+        },
+        "systemIntent": {
+          "intent": "actions.intent.OPTION",
+          "data": {
+            "@type": "type.googleapis.com/google.actions.v2.OptionValueSpec",
+            "listSelect": {
+              "title": "",
+              "items": params.list.itemValues
+            }
+          }
         }
-      ]
-    },
-    "chips": params.sugChips,
-    "contextOut":params.contextOut
-  };
+      }
+    }
+  }
     resolve(respObj);
   });
 };
