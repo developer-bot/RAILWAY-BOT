@@ -17,7 +17,12 @@ expObj.getTrainBetweenStation = function(req, res){
             {
                 "displayText": apiConfig.trainBetweenStation.ResMsg.FROM_STATION_SPEECH
                 ,"textToSpeech":apiConfig.trainBetweenStation.ResMsg.FROM_STATION_TEXT,
+            },
+            {
+                "displayText": apiConfig.trainBetweenStation.ResMsg.FROM_STATION_SPEECH
+                ,"textToSpeech":apiConfig.trainBetweenStation.ResMsg.FROM_STATION_TEXT,
             }],
+            
         };
         console.log("response object",JSON.stringify(simpresponse))
         templateService.simpleResponse(simpresponse)
