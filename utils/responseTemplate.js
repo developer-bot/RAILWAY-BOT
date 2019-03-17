@@ -24,19 +24,28 @@ expObj.simpleResponse = function (params) {
   return new Promise((resolve, reject) =>{
     var simple_msgs=[];
     for(var i in params.simpleMsgs){
-        simple_msgs.push({
-            "text": params.simpleMsgs[i].displayText
-            ,"speech": params.simpleMsgs[i].textToSpeech
-          })
+      simple_msgs.push({
+        "simpleResponse": {
+          "textToSpeech": params.simpleMsgs[i].textToSpeech,
+          "displayText": params.simpleMsgs[i].displayText
+        }
+      })
     }
-    resolve({
 
-      "simpleText": simple_msgs,
-      "contextOut": params.contextOut || "",
-      "chips":params.sugChips || ""
+    resolve({
+      "payload": {
+        "google": {
+          "expectUserResponse": true,
+          "richResponse": {
+            "items": simple_msgs
+          }
+        }
+      }
     });
   });
 };
+
+
 
 // Card response -> Single msg, multiple msg, card, with (or) without chips
 /* Params structure ->  

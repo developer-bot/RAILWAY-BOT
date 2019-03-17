@@ -13,58 +13,20 @@ expObj.getTrainBetweenStation = function(req, res){
     console.log("form station",req.body.queryResult.parameters['fromStation'])
     console.log("all parameters",req.body.queryResult.parameters)
         if (req.body.queryResult.parameters['fromStation']== "") {
-        // let simpresponse = {"simpleMsgs":[
-        //     {
-        //         "displayText": apiConfig.trainBetweenStation.ResMsg.FROM_STATION_SPEECH
-        //         ,"textToSpeech":apiConfig.trainBetweenStation.ResMsg.FROM_STATION_TEXT,
-        //     }],
-        // "contextOut":""
-        // ,"sugChips":""
-        // };
-       // console.log("response object",JSON.stringify(simpresponse))
-        //templateService.simpleResponse(simpresponse)
-        //.then(respObj=>{
-          //  console.log("rep",JSON.stringify(respObj))
-          let respObj = {
-            "payload": {
-              "google": {
-                "expectUserResponse": true,
-                "richResponse": {
-                  "items": [
-                    {
-                      "simpleResponse": {
-                        "textToSpeech": "Howdy! I can tell you fun facts about almost any number."
-                      }
-                    },
-                    {
-                      "simpleResponse": {
-                        "textToSpeech": "What number do you have in mind?"
-                      }
-                    }
-                  ],
-                  "suggestions": [
-                    {
-                      "title": "25"
-                    },
-                    {
-                      "title": "45"
-                    },
-                    {
-                      "title": "Never mind"
-                    }
-                  ],
-                  "linkOutSuggestion": {
-                    "destinationName": "Website",
-                    "url": "https://assistant.google.com"
-                  }
-                }
-              }
-            }
-          }
-            return res.json(respObj);
-        //}).catch (e =>{
+        let simpresponse = {"simpleMsgs":[
+            {
+                "displayText": apiConfig.trainBetweenStation.ResMsg.FROM_STATION_SPEECH
+                ,"textToSpeech":apiConfig.trainBetweenStation.ResMsg.FROM_STATION_TEXT,
+            }],
+        };
+        console.log("response object",JSON.stringify(simpresponse))
+        templateService.simpleResponse(simpresponse)
+        .then(respObj=>{
+            console.log("rep",JSON.stringify(respObj))
+            return res.json(respObj).end();
+        }).catch (e =>{
             sendCommonErrorResponse(req, res);
-       // });
+        });
     }
 }
 
