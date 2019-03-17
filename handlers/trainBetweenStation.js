@@ -63,8 +63,30 @@ expObj.getTrainBetweenStation = function(req, res){
         }).catch (e =>{
             sendCommonErrorResponse(req, res);
         });
-    } 
+    }
+    let botData = {
+        "fromStation" : req.body.queryResult.parameters['fromStation']
+        ,"toStation"  : req.body.queryResult.parameters['toStation']
+        ,"date"       : req.body.queryResult.parameters['date']
+    }
+    let stationCode = getStationCode(botData)
+    console.log("bot",stationCode)
 }
+
+function getStationCode(botData) {
+    let stationCode = STATION_CODE.data
+    let stationCodeArr = []
+    let uDataFrom = stationCode.find(function(cObj){
+        return cObj.name.toLowerCase() == botData.fromStation.toLowerCase();
+    });
+    stationCodeArr.push(uDataFrom.code)
+    let uDataTo = stationCode.find(function(cObj){
+        return cObj.name.toLowerCase() == botData.toStation.toLowerCase();
+    });
+    stationCodeArr.push(uDataTo.code)
+    return stationCodeArr;
+}
+
 
 
 // expObj.getTrainBetweenStation = function(req, res){
