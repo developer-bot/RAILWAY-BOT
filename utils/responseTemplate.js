@@ -170,8 +170,8 @@ expObj.listResponse = function (params) {
     var simple_msgs=[];
     for(var i in params.simpleMsgs){
       simple_msgs.push({
-        "text": params.simpleMsgs[i].displayText
-        ,"speech": params.simpleMsgs[i].textToSpeech
+        "tetextToSpeechxt": params.simpleMsgs[i].displayText
+        ,"displayText": params.simpleMsgs[i].textToSpeech
       })
     }
   let respObj = {
