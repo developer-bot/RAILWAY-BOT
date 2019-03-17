@@ -1,6 +1,6 @@
 {
     "trainBetweenStation": {
-        "path": "https://api.railwayapi.com/v2/between/source/<stn code>/dest/<stn code>/date/<dd-mm-yyyy>/apikey/dkl42901wu/",
+        "path": "https://api.railwayapi.com/v2/between/source/sourcestn/dest/deststn/date/dte/apikey/dkl42901wu/",
         "usage": "to get the train between station",
         "ResMsg": {
             "FROM_STATION_TEXT": "Please enter from station"

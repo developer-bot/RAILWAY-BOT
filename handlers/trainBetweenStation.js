@@ -69,9 +69,41 @@ expObj.getTrainBetweenStation = function(req, res){
         ,"toStation"  : req.body.queryResult.parameters['toStation']
         ,"date"       : req.body.queryResult.parameters['date']
     }
-    let stationCode = getStationCode(botData)
-    console.log("bot",stationCode)
+    let stationCode = getStationCode(botData) //[]
+    let dateFormat  = getDateFormat(botData)
+    var mapObj = {
+        sourcestn: stationCode[0]
+        ,deststn: stationCode[1]
+        ,dte: dateFormat
+    };
+    let getUrl = apiConfig["trainBetweenStation"]["path"]
+    //"https://api.railwayapi.com/v2/between/source/sourcestn/dest/deststn/date/dte/apikey/dkl42901wu/",
+    getUrl = getUrl.replace(/sourcestn|deststn|dte/gi, function (matched) {
+        return mapObj[matched];
+    });
+    console.log("url",getUrl)
+    let details = {
+        'url':getUrl
+        ,'method':"GET"
+        ,'body': null
+        }
 }
+
+
+
+function getDateFormat(botData){
+     //'2019-03-18T12:00:00+06:00'
+     if(botData.date.indexOf('T') > 1) {
+        let newdate = botData.date.split('T')[0].split('-')
+        let day = newdate[2]
+        let month = newdate[1]
+        let year = newdate[0]
+        return `${day}-${month}-${year}`
+    } else {
+        return botData.date
+    }
+}
+
 
 function getStationCode(botData) {
     let stationCode = STATION_CODE.data
