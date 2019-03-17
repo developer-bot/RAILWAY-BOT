@@ -96,7 +96,10 @@ expObj.getTrainBetweenStation = function(req, res){
                       "key": resBody.trains.name
                     },
                     "description": "",
-                    "image":"",
+                 "image": {
+                   "url": "",
+                   "accessibilityText": ""
+                 },
                     "title": resBody.trains.name
                   })
             });
