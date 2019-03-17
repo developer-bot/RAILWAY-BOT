@@ -1,0 +1,14 @@
+{
+    "trainBetweenStation": {
+        "path": "https://api.railwayapi.com/v2/between/source/<stn code>/dest/<stn code>/date/<dd-mm-yyyy>/apikey/dkl42901wu/",
+        "usage": "to get the train between station",
+        "ResMsg": {
+            "FROM_STATION_TEXT": "Please enter from station"
+            ,"FROM_STATION_SPEECH": "Please enter from station"
+            ,"TO_STATION_TEXT":"please enter to station"
+            ,"TO_STATION_SPEECH":"please enter to station"
+            ,"DATE_TEXT": "please enter the data (eg. <dd-mm-yyyy>/tomorrow/today/next monday/friday/)"
+            ,"DATE_SPEECH": "please enter the data (eg. <dd-mm-yyyy>/tomorrow/today/next monday/friday/)"
+        }
+    }
+}

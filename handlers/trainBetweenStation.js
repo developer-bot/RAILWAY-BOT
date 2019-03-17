@@ -1,7 +1,7 @@
 
 //const COMMON_DATA = require('../config/common.json');
 const STATION_CODE = require('../config/stationCode.json');
-//const apiConfig = require('../config/apiConfig.json');
+const apiConfig = require('../config/apiConfig.json');
 let templateService = require('../utils/responseTemplate');
 let apiService = require('../utils/apiService');
 
@@ -10,6 +10,23 @@ let expObj = {};
 
 expObj.getTrainBetweenStation = function(req, res){
     console.log("body is coming",JSON.stringify(req.body))
+        if (req.body.queryResult.parameters.fromStation == "") {
+        let simpresponse = {"simpleMsgs":[
+            {
+                "displayText": apiConfig.trainBetweenStation.ResMsg.FROM_STATION_SPEECH
+                ,"textToSpeech":apiConfig.trainBetweenStation.ResMsg.FROM_STATION_TEXT,
+            }],
+        "contextOut":""
+        ,"sugChips":""
+        };
+        templateService.simpleResponse(simpresponse)
+        .then(respObj=>{
+            return res.json(respObj).end();
+        }).catch (e =>{
+            personalInfoLogs.error(e);
+            sendCommonErrorResponse(req, res);
+        });
+    }
 }
 
 
@@ -138,3 +155,5 @@ expObj.getTrainBetweenStation = function(req, res){
 //             });
 //     }
 // };
+
+module.exports = expObj;
