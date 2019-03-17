@@ -21,6 +21,7 @@ expObj.getTrainBetweenStation = function(req, res){
         "contextOut":""
         ,"sugChips":""
         };
+        console.log("response object",JSON.stringify(simpresponse))
         templateService.simpleResponse(simpresponse)
         .then(respObj=>{
             return res.json(respObj).end();
