@@ -10,11 +10,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 
 app.post("/webhook",function(req,res){
-    let body = req.body
+    console.log("data is",JSON.stringify(req.body))
+    // let body = req.body
     
-    if(body.queryResult.intent.displayName == "trainBetweenStation") {
-        trainBetween.getTrainBetweenStation(req,res)
-    }
+    // if(body.queryResult.intent.displayName == "trainBetweenStation") {
+    //     trainBetween.getTrainBetweenStation(req,res)
+    // }
 });
 process.on('unCaughtException', function(err){
 	console.log(err);
