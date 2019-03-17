@@ -33,11 +33,30 @@ expObj.getTrainBetweenStation = function(req, res){
                   "items": [
                     {
                       "simpleResponse": {
-                        "textToSpeech": "please select from station",
-                        "displayText" : "please select from station"
+                        "textToSpeech": "Howdy! I can tell you fun facts about almost any number."
+                      }
+                    },
+                    {
+                      "simpleResponse": {
+                        "textToSpeech": "What number do you have in mind?"
                       }
                     }
-                  ]
+                  ],
+                  "suggestions": [
+                    {
+                      "title": "25"
+                    },
+                    {
+                      "title": "45"
+                    },
+                    {
+                      "title": "Never mind"
+                    }
+                  ],
+                  "linkOutSuggestion": {
+                    "destinationName": "Website",
+                    "url": "https://assistant.google.com"
+                  }
                 }
               }
             }
