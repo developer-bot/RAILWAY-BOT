@@ -167,20 +167,17 @@ expObj.cardResponse = function(params){
 
 
 
-
-
-
-
-
-
 expObj.listResponse = function (params) {
     return new Promise((resolve, reject) => {
     var simple_msgs=[];
     for(var i in params.simpleMsgs){
       simple_msgs.push({
-        "textToSpeech": params.simpleMsgs[i].displayText
-        ,"displayText": params.simpleMsgs[i].textToSpeech
-      })
+        "simpleResponse": {
+          "textToSpeech": params.simpleMsgs[i].textToSpeech,
+          "displayText": params.simpleMsgs[i].displayText
+        }
+      }
+      )
     }
   let respObj = {
     "payload": {
