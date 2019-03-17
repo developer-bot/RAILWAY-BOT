@@ -13,22 +13,39 @@ expObj.getTrainBetweenStation = function(req, res){
     console.log("form station",req.body.queryResult.parameters['fromStation'])
     console.log("all parameters",req.body.queryResult.parameters)
         if (req.body.queryResult.parameters['fromStation']== "") {
-        let simpresponse = {"simpleMsgs":[
-            {
-                "displayText": apiConfig.trainBetweenStation.ResMsg.FROM_STATION_SPEECH
-                ,"textToSpeech":apiConfig.trainBetweenStation.ResMsg.FROM_STATION_TEXT,
-            }],
-        "contextOut":""
-        ,"sugChips":""
-        };
-        console.log("response object",JSON.stringify(simpresponse))
-        templateService.simpleResponse(simpresponse)
-        .then(respObj=>{
-            console.log("rep",JSON.stringify(respObj))
+        // let simpresponse = {"simpleMsgs":[
+        //     {
+        //         "displayText": apiConfig.trainBetweenStation.ResMsg.FROM_STATION_SPEECH
+        //         ,"textToSpeech":apiConfig.trainBetweenStation.ResMsg.FROM_STATION_TEXT,
+        //     }],
+        // "contextOut":""
+        // ,"sugChips":""
+        // };
+       // console.log("response object",JSON.stringify(simpresponse))
+        //templateService.simpleResponse(simpresponse)
+        //.then(respObj=>{
+          //  console.log("rep",JSON.stringify(respObj))
+          let respObj = {
+            "payload": {
+              "google": {
+                "expectUserResponse": true,
+                "richResponse": {
+                  "items": [
+                    {
+                      "simpleResponse": {
+                        "textToSpeech": "please select from station",
+                        "displayText" : "please select from station"
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
             return res.json(respObj);
-        }).catch (e =>{
+        //}).catch (e =>{
             sendCommonErrorResponse(req, res);
-        });
+       // });
     }
 }
 

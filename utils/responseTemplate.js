@@ -30,6 +30,7 @@ expObj.simpleResponse = function (params) {
           })
     }
     resolve({
+
       "simpleText": simple_msgs,
       "contextOut": params.contextOut || "",
       "chips":params.sugChips || ""
