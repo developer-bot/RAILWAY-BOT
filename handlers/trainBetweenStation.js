@@ -92,17 +92,19 @@ expObj.getTrainBetweenStation = function(req, res){
             console.log("data from ele",JSON.stringify(resBody.trains))
             let listItems=[]
             resBody.trains.forEach(element => {
-                listItems.push({
-                    "optionInfo": {
-                      "key": `${element.number}|${element.name}`
-                    },
-                    "description": `${element.src_departure_time} ${element.from_station.code} --> ${element.travel_time} --> ${element.dest_arrival_time} ${element.to_station.code}`,
-                 "image": {
-                   "url": "",
-                   "accessibilityText": ""
-                 },
-                    "title": `${element.number} | ${element.name}`
-                  })
+                if(element.from_station.code == stationCode[0] && element.to_station.code==stationCode[1]){
+                    listItems.push({
+                        "optionInfo": {
+                          "key": `${element.number}|${element.name}`
+                        },
+                        "description": `${element.src_departure_time} ${element.from_station.code} --> ${element.travel_time} --> ${element.dest_arrival_time} ${element.to_station.code}`,
+                     "image": {
+                       "url": "",
+                       "accessibilityText": ""
+                     },
+                        "title": `${element.number} | ${element.name}`
+                      })
+                }
             });
             let listDetails = {
                 "simpleMsgs":[{
