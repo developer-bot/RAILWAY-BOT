@@ -69,8 +69,8 @@ expObj.getTrainBetweenStation = function(req, res){
         ,"toStation"  : req.body.queryResult.parameters['toStation']
         ,"date"       : req.body.queryResult.parameters['date']
     }
-    let stationCode = getStationCode(botData) //[]
-    let dateFormat  = getDateFormat(botData)
+    var stationCode = getStationCode(botData) //[]
+    var dateFormat  = getDateFormat(botData)
     var mapObj = {
         sourcestn: stationCode[0]
         ,deststn: stationCode[1]
@@ -92,6 +92,11 @@ expObj.getTrainBetweenStation = function(req, res){
             console.log("data from ele",JSON.stringify(resBody.trains))
             let listItems=[]
             resBody.trains.forEach(element => {
+                console.log("from station api",element.from_station.code)
+                console.log("from station json",stationCode[0])
+                console.log("to station api",element.to_station.code)
+                console.log("to station json",stationCode[1])
+
                 if(element.from_station.code == stationCode[0] && element.to_station.code==stationCode[1]){
                     listItems.push({
                         "optionInfo": {
