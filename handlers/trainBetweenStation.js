@@ -106,8 +106,8 @@ expObj.getTrainBetweenStation = function(req, res){
             });
             let listDetails = {
                 "simpleMsgs":[{
-                    "textToSpeech": `following are the list of train from ${resBody.trains.from_station.name} to ${resBody.trains.to_station.name}`,
-                    "displayText": `following are the list of train from ${resBody.trains.from_station.name} to ${resBody.trains.to_station.name}`,
+                    "textToSpeech": `following are the list of train from ${resBody.trains[0].from_station.name} to ${resBody.trains[0].to_station.name}`,
+                    "displayText": `following are the list of train from ${resBody.trains[0].from_station.name} to ${resBody.trains[0].to_station.name}`,
                 }],
                   "list": {
                     "itemValues": listItems
