@@ -96,7 +96,7 @@ expObj.getTrainBetweenStation = function(req, res){
                     "optionInfo": {
                       "key": `${element.number}|${element.name}`
                     },
-                    "description": `${element.src_departure_time} ${element.from_station.code} --> **${element.travel_time}** --> ${element.dest_arrival_time} ${element.to_station.code}`,
+                    "description": `${element.src_departure_time} ${element.from_station.code} --> ${element.travel_time} --> ${element.dest_arrival_time} ${element.to_station.code}`,
                  "image": {
                    "url": "",
                    "accessibilityText": ""
@@ -106,8 +106,8 @@ expObj.getTrainBetweenStation = function(req, res){
             });
             let listDetails = {
                 "simpleMsgs":[{
-                    "textToSpeech": `following are the list of train from **${resBody.trains[0].from_station.name}** to ${resBody.trains[0].to_station.name}`,
-                    "displayText": `following are the list of train from **${resBody.trains[0].from_station.name}** to ${resBody.trains[0].to_station.name}`,
+                    "textToSpeech": `following are the list of train from ${resBody.trains[0].from_station.name} to ${resBody.trains[0].to_station.name}`,
+                    "displayText": `following are the list of train from ${resBody.trains[0].from_station.name} to ${resBody.trains[0].to_station.name}`,
                 }],
                   "list": {
                     "itemValues": listItems
