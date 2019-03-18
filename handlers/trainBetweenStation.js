@@ -94,20 +94,20 @@ expObj.getTrainBetweenStation = function(req, res){
             resBody.trains.forEach(element => {
                 listItems.push({
                     "optionInfo": {
-                      "key": element.name
+                      "key": `${element.number}|${element.name}`
                     },
-                    "description": "",
+                    "description": `${element.src_departure_time} ${element.from_station.code} --> ${element.travel_time} --> ${element.dest_arrival_time} ${element.to_station.code}`,
                  "image": {
                    "url": "",
                    "accessibilityText": ""
                  },
-                    "title": element.name
+                    "title": `${element.number}|${element.name}`
                   })
             });
             let listDetails = {
                 "simpleMsgs":[{
-                    "textToSpeech": "following are the list of train",
-                    "displayText": "following are the list of train",
+                    "textToSpeech": `following are the list of train from ${resBody.trains.from_station.name} to ${resBody.trains.to_station.name}`,
+                    "displayText": `following are the list of train from ${resBody.trains.from_station.name} to ${resBody.trains.to_station.name}`,
                 }],
                   "list": {
                     "itemValues": listItems
