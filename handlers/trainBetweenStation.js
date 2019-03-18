@@ -96,7 +96,7 @@ expObj.getTrainBetweenStation = function(req, res){
                     "optionInfo": {
                       "key": `${element.number}|${element.name}`
                     },
-                    "description": `${element.src_departure_time} ${element.from_station["code"]} --> ${element.travel_time} --> ${element.dest_arrival_time} ${element.to_station["code"]}`,
+                    "description": "",
                  "image": {
                    "url": "",
                    "accessibilityText": ""
