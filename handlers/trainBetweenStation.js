@@ -96,8 +96,6 @@ expObj.getTrainBetweenStation = function(req, res){
                 console.log("from station json",stationCode[0])
                 console.log("to station api",element.to_station.code)
                 console.log("to station json",stationCode[1])
-
-                if(element.from_station.code == stationCode[0] && element.to_station.code==stationCode[1]){
                     listItems.push({
                         "optionInfo": {
                           "key": `${element.number}|${element.name}`
@@ -110,7 +108,7 @@ expObj.getTrainBetweenStation = function(req, res){
                         "title": `${element.number} | ${element.name}`
                       })
                 }
-            });
+            );
             let listDetails = {
                 "simpleMsgs":[{
                     "textToSpeech": `following are the list of train from ${resBody.trains[0].from_station.name} to ${resBody.trains[0].to_station.name}`,
