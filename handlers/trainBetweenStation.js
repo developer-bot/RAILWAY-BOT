@@ -71,13 +71,12 @@ expObj.getTrainBetweenStation = function(req, res){
     }
     var stationCode = getStationCode(botData) //[]
     var dateFormat  = getDateFormat(botData)
-    var trainCode   = getTrainCode(stationCode[0],stationCode[1],dateFormat,req, res)
-    console.log("array",trainCode)
     let secondGetUrl = apiConfig["trainBetweenStation"]["path_second"]
     //"https://api.railwayapi.com/v2/between/source/sourcestn/dest/deststn/date/dte/apikey/dkl42901wu/",
  
     secondGetUrl = secondGetUrl.replace("source",stationCode[0])
     secondGetUrl = secondGetUrl.replace("dest",stationCode[1])
+    console.log("url",getUrl)
 
         let secondDetails = {
             'url':secondGetUrl
@@ -89,6 +88,8 @@ expObj.getTrainBetweenStation = function(req, res){
         apiService.callAPI(secondDetails)
         .then(resBody=>{
             if(resBody.Trains){
+                var trainCode   = getTrainCode(stationCode[0],stationCode[1],dateFormat,req, res)
+                console.log("******array of resoponse code*****",trainCode)
                 //console.log("data from ele",JSON.stringify(resBody.Trains))
                 let listItems=[]
                 resBody["Trains"].forEach(element => {
@@ -153,15 +154,11 @@ function getTrainCode(source,dest,date,req,res){
         }
     apiService.callAPI(details)
     .then(resBody=>{
-        console.log("no meetings"+JSON.stringify(resBody))
         let traincode = []
         if(resBody.trains){
             resBody.trains.forEach(element => {
-                        console.log("train code",element.number)
-
                 traincode.push(element.number)
             })
-            console.log("array of trian code",traincode)
             return traincode
         } else{
             sendCommonErrorResponse(req, res);
