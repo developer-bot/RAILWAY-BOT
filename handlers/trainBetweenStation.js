@@ -97,10 +97,10 @@ expObj.getTrainBetweenStation = function(req, res){
             }
         
         var trainCode = apiService.normalApiCall(details)
-        console.log("data from normal api call",JSON.stringify(trainCode))
+        console.log("data from normal api call",trainCode)
         let traincode = []
         if(trainCode.trains){
-            trainCode.trains.forEach(element => {
+            trainCode["trains"].forEach(element => {
                 traincode.push(element.number)
             })
         }
