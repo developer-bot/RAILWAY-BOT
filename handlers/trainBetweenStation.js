@@ -107,20 +107,21 @@ expObj.getTrainBetweenStation = function(req, res){
                         json : true
                     };
                     let resBody = request(options, function (err, response, body) {
-                        return JSON.parse(body)         
+                        console.log("res*******",body)
+                        return JSON.stringify(body)         
                     });
                     console.log("body",resBody)
-                        var traincode = []
-                        if(resBody.trains){
-                            resBody.trains.forEach(element => {
-                                traincode.push(element.number)
-                            })
-                            return traincode;
-                        } else{
-                            sendCommonErrorResponse(req, res);
-                        }
+//                         var traincode = []
+//                         if(resBody.trains){
+//                             resBody.trains.forEach(element => {
+//                                 traincode.push(element.number)
+//                             })
+//                             return traincode;
+//                         } else{
+//                             sendCommonErrorResponse(req, res);
+//                         }
                   
-                console.log("data from ele",traincode)
+               // console.log("data from ele",traincode)
                 let listItems=[]
                 resBody["Trains"].forEach(element => {
                         listItems.push({
