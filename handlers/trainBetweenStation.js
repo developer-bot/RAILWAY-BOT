@@ -88,8 +88,8 @@ expObj.getTrainBetweenStation = function(req, res){
         apiService.callAPI(secondDetails)
         .then(resBody=>{
             if(resBody.Trains){
-                var trainCode   = getTrainCode(stationCode[0],stationCode[1],dateFormat,req, res)
-                console.log("******array of resoponse code*****",trainCode)
+               
+                console.log("******array of resoponse code*****",getTrainCode(stationCode[0],stationCode[1],dateFormat,req, res))
                 //console.log("data from ele",JSON.stringify(resBody.Trains))
                 let listItems=[]
                 resBody["Trains"].forEach(element => {
