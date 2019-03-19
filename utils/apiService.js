@@ -49,7 +49,8 @@ module.exports.normalApiCall = (params) =>{ //url, method, body, reqHeaders
     console.log("url",options.url)
         request(options, function (err, response, body) {
           console.log("data from api",JSON.stringify(body))
-            return body            
+            let data = JSON.stringify(body)
+            return data        
         });
    
 };
