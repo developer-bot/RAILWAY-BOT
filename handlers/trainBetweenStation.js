@@ -95,11 +95,11 @@ expObj.getTrainBetweenStation = function(req, res){
             ,'method':"GET"
             ,'body': null
             }
-        
+        var trainCode = []
         apiService.callAPI(details)
         .then(resBody=>{
             if(resBody.trains){
-                var trainCode = []
+                
                 resBody.trains.forEach(element => {
                     trainCode.push(element.number)
                 })
