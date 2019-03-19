@@ -111,7 +111,7 @@ expObj.getTrainBetweenStation = function(req, res){
              return sendCommonErrorResponse(req, res);
          })
          console.log("all train code",JSON.stringify(trainCode))
-         console.log("all train code",trainCode)
+         console.log("all train code",secondGetUrl)
         apiService.callAPI(secondDetails)
         .then(resBody=>{
             if(resBody.Trains){
