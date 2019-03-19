@@ -108,9 +108,9 @@ expObj.getTrainBetweenStation = function(req, res){
                     };
                     let resBody = request(options, function (err, response, body) {
                         console.log("res*******",body)
-                        return JSON.stringify(body)         
+                        return body        
                     });
-                    console.log("body",resBody)
+                    console.log("body******",resBody)
 //                         var traincode = []
 //                         if(resBody.trains){
 //                             resBody.trains.forEach(element => {
