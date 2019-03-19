@@ -77,54 +77,79 @@ expObj.getTrainBetweenStation = function(req, res){
         ,dte: dateFormat
     };
     let getUrl = apiConfig["trainBetweenStation"]["path"]
+    let secondGetUrl = apiConfig["trainBetweenStation"]["path_second"]
     //"https://api.railwayapi.com/v2/between/source/sourcestn/dest/deststn/date/dte/apikey/dkl42901wu/",
     getUrl = getUrl.replace(/sourcestn|deststn|dte/gi, function (matched) {
         return mapObj[matched];
     });
+    secondGetUrl = secondGetUrl.replace(source,stationCode[0])
+    secondGetUrl = secondGetUrl.replace(dest,stationCode[1])
     console.log("url",getUrl)
     let details = {
         'url':getUrl
         ,'method':"GET"
         ,'body': null
         }
+        let secondDetails = {
+            'url':secondGetUrl
+            ,'method':"GET"
+            ,'body': null
+            }
+        
         apiService.callAPI(details)
         .then(resBody=>{
-            console.log("data from ele",JSON.stringify(resBody.trains))
-            let listItems=[]
-            resBody.trains.forEach(element => {
-                console.log("from station api",element.from_station.code)
-                console.log("from station json",stationCode[0])
-                console.log("to station api",element.to_station.code)
-                console.log("to station json",stationCode[1])
-                    listItems.push({
-                        "optionInfo": {
-                          "key": `${element.number}|${element.name}`
-                        },
-                        "description": `${element.src_departure_time} ${element.from_station.code} --> ${element.travel_time} --> ${element.dest_arrival_time} ${element.to_station.code}`,
-                     "image": {
-                       "url": "",
-                       "accessibilityText": ""
-                     },
-                        "title": `${element.number} | ${element.name}`
-                      })
-                }
-            );
-            let listDetails = {
-                "simpleMsgs":[{
-                    "textToSpeech": `following are the list of train from ${resBody.trains[0].from_station.name} to ${resBody.trains[0].to_station.name}`,
-                    "displayText": `following are the list of train from ${resBody.trains[0].from_station.name} to ${resBody.trains[0].to_station.name}`,
-                }],
-                  "list": {
-                    "itemValues": listItems
-                }
-            };
-            templateService.listResponse(listDetails)
-            .then(respObj=>{
-              console.log("no meetings"+JSON.stringify(respObj))
-              return res.json(respObj).end();
-            }).catch (e =>{
-                  return sendCommonErrorResponse(req,res);
-            });
+            if(resBody.trains){
+                var trainCode = []
+                resBody.trains.forEach(element => {
+                    trainCode.push(element.number)
+                })
+            } else {
+                return sendCommonErrorResponse(req, res);
+            }
+        }).catch(e =>{
+            console.log("error in api second calling");
+             return sendCommonErrorResponse(req, res);
+         })
+         console.log("all train code",JSON.stringify(trainCode))
+         console.log("all train code",trainCode)
+        apiService.callAPI(secondDetails)
+        .then(resBody=>{
+            if(resBody.Trains){
+                console.log("data from ele",JSON.stringify(resBody.trains))
+                let listItems=[]
+                resBody.Trains.forEach(element => {
+                        listItems.push({
+                            "optionInfo": {
+                              "key": `${element.TrainNo}|${element.TrainName}`
+                            },
+                            "description": `${element.DepartureTime} ${element.Source} --> ${element.TravelTime} --> ${element.ArrivalTime} ${element.Destination}`,
+                         "image": {
+                           "url": "",
+                           "accessibilityText": ""
+                         },
+                            "title": `${element.TrainNo} | ${element.TrainName}`
+                          })
+                    }
+                );
+                let listDetails = {
+                    "simpleMsgs":[{
+                        "textToSpeech": `following are the list of train from ${resBody.trains[0].from_station.name} to ${resBody.trains[0].to_station.name}`,
+                        "displayText": `following are the list of train from ${resBody.trains[0].from_station.name} to ${resBody.trains[0].to_station.name}`,
+                    }],
+                      "list": {
+                        "itemValues": listItems
+                    }
+                };
+                templateService.listResponse(listDetails)
+                .then(respObj=>{
+                  console.log("no meetings"+JSON.stringify(respObj))
+                  return res.json(respObj).end();
+                }).catch (e =>{
+                      return sendCommonErrorResponse(req,res);
+                });
+            } else {
+                return sendCommonErrorResponse(req, res)
+            }
         })
         .catch(e =>{
             console.log("error in api calling");
