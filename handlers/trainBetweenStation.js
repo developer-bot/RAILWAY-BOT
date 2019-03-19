@@ -82,8 +82,8 @@ expObj.getTrainBetweenStation = function(req, res){
     getUrl = getUrl.replace(/sourcestn|deststn|dte/gi, function (matched) {
         return mapObj[matched];
     });
-    secondGetUrl = secondGetUrl.replace(source,stationCode[0])
-    secondGetUrl = secondGetUrl.replace(dest,stationCode[1])
+    secondGetUrl = secondGetUrl.replace("source",stationCode[0])
+    secondGetUrl = secondGetUrl.replace("dest",stationCode[1])
     console.log("url",getUrl)
     let details = {
         'url':getUrl
