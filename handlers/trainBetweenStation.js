@@ -78,7 +78,6 @@ expObj.getTrainBetweenStation = function(req, res){
  
     secondGetUrl = secondGetUrl.replace("source",stationCode[0])
     secondGetUrl = secondGetUrl.replace("dest",stationCode[1])
-    console.log("url",getUrl)
 
         let secondDetails = {
             'url':secondGetUrl
@@ -154,9 +153,12 @@ function getTrainCode(source,dest,date,req,res){
         }
     apiService.callAPI(details)
     .then(resBody=>{
+        console.log("no meetings"+JSON.stringify(resBody))
         let traincode = []
         if(resBody.trains){
             resBody.trains.forEach(element => {
+                        console.log("train code",element.number)
+
                 traincode.push(element.number)
             })
             return traincode
