@@ -152,14 +152,13 @@ function getTrainCode(source,dest,date,req,res){
         ,'method':"GET"
         ,'body': null
         }
+        let traincode = []
     apiService.callAPI(details)
     .then(resBody=>{
-        let traincode = []
         if(resBody.trains){
             resBody.trains.forEach(element => {
                 traincode.push(element.number)
             })
-            return traincode
         } else{
             sendCommonErrorResponse(req, res);
         }
@@ -168,6 +167,8 @@ function getTrainCode(source,dest,date,req,res){
         console.log("error in api calling");
          return sendCommonErrorResponse(req, res);
      })
+     console.log("return array data ",traincode)
+     return traincode
 }
 
 
