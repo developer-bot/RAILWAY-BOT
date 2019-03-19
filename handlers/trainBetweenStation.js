@@ -161,6 +161,7 @@ function getTrainCode(source,dest,date,req,res){
 
                 traincode.push(element.number)
             })
+            console.log("array of trian code",traincode)
             return traincode
         } else{
             sendCommonErrorResponse(req, res);
