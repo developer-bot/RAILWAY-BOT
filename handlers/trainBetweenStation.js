@@ -152,13 +152,15 @@ function getTrainCode(source,dest,date,req,res){
         ,'method':"GET"
         ,'body': null
         }
-        let traincode = []
+        
     apiService.callAPI(details)
     .then(resBody=>{
+        var traincode = []
         if(resBody.trains){
             resBody.trains.forEach(element => {
                 traincode.push(element.number)
             })
+            return traincode;
         } else{
             sendCommonErrorResponse(req, res);
         }
