@@ -32,3 +32,22 @@ module.exports.callAPI = (params) =>{ //url, method, body, reqHeaders
     });
 };
 
+module.exports.normalApiCall = (params) =>{ //url, method, body, reqHeaders
+
+    let options = {
+        method : params.method,
+        url: params.url,
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept':'application/json'
+        },
+        json : true
+    };
+    if (params.method == "POST" && params.body){
+        options.body = params.body;
+    }
+        request(options, function (err, response, body) {
+            return body            
+        });
+   
+};
