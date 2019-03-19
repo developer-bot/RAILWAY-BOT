@@ -107,7 +107,7 @@ expObj.getTrainBetweenStation = function(req, res){
                         json : true
                     };
                     let resBody = request(options, function (err, response, body) {
-                        return body          
+                        return JSON.parse(body)         
                     });
                     console.log("body",resBody)
                         var traincode = []
