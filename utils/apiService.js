@@ -46,7 +46,9 @@ module.exports.normalApiCall = (params) =>{ //url, method, body, reqHeaders
     if (params.method == "POST" && params.body){
         options.body = params.body;
     }
+    console.log("url",options.url)
         request(options, function (err, response, body) {
+          console.log("data from api",JSON.stringify(body))
             return body            
         });
    
