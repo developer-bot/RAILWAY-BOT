@@ -88,9 +88,39 @@ expObj.getTrainBetweenStation = function(req, res){
         apiService.callAPI(secondDetails)
         .then(resBody=>{
             if(resBody.Trains){
-               
-                console.log("******array of resoponse code*****",getTrainCode(stationCode[0],stationCode[1],dateFormat,req, res))
-                //console.log("data from ele",JSON.stringify(resBody.Trains))
+                var mapObj = {
+                    sourcestn: stationCode[0]
+                    ,deststn: stationCode[1]
+                    ,dte: dateFormat
+                };
+                let getUrl = apiConfig["trainBetweenStation"]["path"]
+                getUrl = getUrl.replace(/sourcestn|deststn|dte/gi, function (matched) {
+                    return mapObj[matched];
+                });
+                    let options = {
+                        method : "GET",
+                        url: getUrl,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept':'application/json'
+                        },
+                        json : true
+                    };
+                    let resBody = request(options, function (err, response, body) {
+                        return body          
+                    });
+                    console.log("body",resBody)
+                        var traincode = []
+                        if(resBody.trains){
+                            resBody.trains.forEach(element => {
+                                traincode.push(element.number)
+                            })
+                            return traincode;
+                        } else{
+                            sendCommonErrorResponse(req, res);
+                        }
+                  
+                console.log("data from ele",traincode)
                 let listItems=[]
                 resBody["Trains"].forEach(element => {
                         listItems.push({
@@ -134,44 +164,6 @@ expObj.getTrainBetweenStation = function(req, res){
 }
 
 
-
-function getTrainCode(source,dest,date,req,res){
-    console.log("enter in to train code")
-    var mapObj = {
-        sourcestn: source
-        ,deststn: dest
-        ,dte: date
-    };
-    let getUrl = apiConfig["trainBetweenStation"]["path"]
-    getUrl = getUrl.replace(/sourcestn|deststn|dte/gi, function (matched) {
-        return mapObj[matched];
-    });
-    console.log("get urls",getUrl)
-    let details = {
-        'url':getUrl
-        ,'method':"GET"
-        ,'body': null
-        }
-        
-    apiService.callAPI(details)
-    .then(resBody=>{
-        var traincode = []
-        if(resBody.trains){
-            resBody.trains.forEach(element => {
-                traincode.push(element.number)
-            })
-            return traincode;
-        } else{
-            sendCommonErrorResponse(req, res);
-        }
-    })
-    .catch(e =>{
-        console.log("error in api calling");
-         return sendCommonErrorResponse(req, res);
-     })
-     console.log("return array data ",traincode)
-     return traincode
-}
 
 
 
