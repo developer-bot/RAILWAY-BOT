@@ -95,14 +95,16 @@ expObj.getTrainBetweenStation = function(req, res){
             ,'method':"GET"
             ,'body': null
             }
-        var trainCode = []
-        apiService.callAPI(details)
+        
+        var trainCode = apiService.callAPI(details)
         .then(resBody=>{
+            console.log("data from ele",JSON.stringify(resBody.trains))
             if(resBody.trains){
-                
+                let trainCode = []
                 resBody.trains.forEach(element => {
                     trainCode.push(element.number)
                 })
+                return trainCode
             } else {
                 return sendCommonErrorResponse(req, res);
             }
@@ -111,13 +113,14 @@ expObj.getTrainBetweenStation = function(req, res){
              return sendCommonErrorResponse(req, res);
          })
          console.log("all train code",JSON.stringify(trainCode))
-         console.log("all train code",secondGetUrl)
+         console.log("all train code",trainCode)
+         console.log("second url",secondGetUrl)
         apiService.callAPI(secondDetails)
         .then(resBody=>{
             if(resBody.Trains){
-                console.log("data from ele",JSON.stringify(resBody.trains))
+                console.log("data from ele",JSON.stringify(resBody.Trains))
                 let listItems=[]
-                resBody.Trains.forEach(element => {
+                resBody["Trains"].forEach(element => {
                         listItems.push({
                             "optionInfo": {
                               "key": `${element.TrainNo}|${element.TrainName}`
@@ -133,8 +136,8 @@ expObj.getTrainBetweenStation = function(req, res){
                 );
                 let listDetails = {
                     "simpleMsgs":[{
-                        "textToSpeech": `following are the list of train from ${resBody.trains[0].from_station.name} to ${resBody.trains[0].to_station.name}`,
-                        "displayText": `following are the list of train from ${resBody.trains[0].from_station.name} to ${resBody.trains[0].to_station.name}`,
+                        "textToSpeech": `following are the list of train from ${stationCode[0]} to ${stationCode[1]}`,
+                        "displayText": `following are the list of train from ${stationCode[0]} to ${stationCode[1]}`,
                     }],
                       "list": {
                         "itemValues": listItems
@@ -155,6 +158,12 @@ expObj.getTrainBetweenStation = function(req, res){
             console.log("error in api calling");
              return sendCommonErrorResponse(req, res);
          });
+
+}
+
+
+
+function getTrainCode(botData){
 
 }
 
