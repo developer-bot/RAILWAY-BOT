@@ -96,29 +96,21 @@ expObj.getTrainBetweenStation = function(req, res){
             ,'body': null
             }
         
-        var trainCode = apiService.callAPI(details)
-        .then(resBody=>{
-            console.log("data from ele",JSON.stringify(resBody.trains))
-            if(resBody.trains){
-                let trainCode = []
-                resBody.trains.forEach(element => {
-                    trainCode.push(element.number)
-                })
-                return trainCode
-            } else {
-                return sendCommonErrorResponse(req, res);
-            }
-        }).catch(e =>{
-            console.log("error in api second calling");
-             return sendCommonErrorResponse(req, res);
-         })
-         console.log("all train code",JSON.stringify(trainCode))
-         console.log("all train code",trainCode)
+        var trainCode = apiService.normalApiCall(details)
+        console.log("data from normal api call",JSON.stringify(trainCode))
+        let traincode = []
+        if(trainCode.trains){
+            trainCode.trains.forEach(element => {
+                traincode.push(element.number)
+            })
+        }
+         console.log("all train code",JSON.stringify(traincode))
+         console.log("all train code",traincode)
          console.log("second url",secondGetUrl)
         apiService.callAPI(secondDetails)
         .then(resBody=>{
             if(resBody.Trains){
-                console.log("data from ele",JSON.stringify(resBody.Trains))
+                //console.log("data from ele",JSON.stringify(resBody.Trains))
                 let listItems=[]
                 resBody["Trains"].forEach(element => {
                         listItems.push({
@@ -145,7 +137,7 @@ expObj.getTrainBetweenStation = function(req, res){
                 };
                 templateService.listResponse(listDetails)
                 .then(respObj=>{
-                  console.log("no meetings"+JSON.stringify(respObj))
+                 // console.log("no meetings"+JSON.stringify(respObj))
                   return res.json(respObj).end();
                 }).catch (e =>{
                       return sendCommonErrorResponse(req,res);
