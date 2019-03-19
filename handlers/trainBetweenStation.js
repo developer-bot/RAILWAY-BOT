@@ -76,7 +76,7 @@ expObj.getTrainBetweenStation = function(req, res){
  
     secondGetUrl = secondGetUrl.replace("source",stationCode[0])
     secondGetUrl = secondGetUrl.replace("dest",stationCode[1])
-    console.log("url",getUrl)
+    
 
         let secondDetails = {
             'url':secondGetUrl
